@@ -1,11 +1,12 @@
-use components::content::*;
+mod components;
 
+use components::content::*;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
 struct MainProject {
     link: ComponentLink<Self>,
-    content: [ProjectContent; 4],
+    contents: Vec<ProjectContent>,
 }
 
 enum Msg {}
@@ -16,11 +17,18 @@ impl Component for MainProject {
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
         Self {
             link,
-            content: [ProjectContent::new(
-                ContentType::Video,
-                "gaming1",
-                "https://i.gyazo.com/94297d4712add817da9ec7ecda9fa5a4.mp4",
-            )],
+            contents: vec![
+                ProjectContent::new(
+                    ContentType::Video,
+                    "gaming1",
+                    "https://i.gyazo.com/94297d4712add817da9ec7ecda9fa5a4.mp4",
+                ),
+                ProjectContent::new(
+                    ContentType::Video,
+                    "gaming2",
+                    "https://i.gyazo.com/64c664823fe64229eadfb1cb6a8a461c.mp4",
+                ),
+            ],
         }
     }
 
@@ -38,11 +46,10 @@ impl Component for MainProject {
     fn view(&self) -> Html {
         html! {
             <div>
-                // <ul>
-                //     <VideoContentCard/>
-                // </ul>
-                // TODO: use the screenshots field (iterate over it and display videos)
-                <a href="https://gyazo.com/94297d4712add817da9ec7ecda9fa5a4"><video alt="Video from Gyazo" width="640" autoplay=true muted=true loop=true playsinline=true controls=true><source src="https://i.gyazo.com/94297d4712add817da9ec7ecda9fa5a4.mp4" type="video/mp4" /></video></a>
+                { for self.contents.iter().map(|props|
+                    html! {
+                    <VideoContentCard alt_text=props.alt_text.to_owned() video_url=props.src_url.to_owned(), width=props.width/>
+                }) }
             </div>
         }
     }

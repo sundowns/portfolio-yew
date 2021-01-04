@@ -1,3 +1,1 @@
-mod components {
-    content::*
-}
+pub mod content;

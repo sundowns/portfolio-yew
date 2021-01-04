@@ -1,46 +1,59 @@
+use yew::prelude::*;
+
+#[derive(Clone, PartialEq)]
 pub enum ContentType {
     Video,
     Screenshot,
 }
+
 pub struct ProjectContent {
-    content_type: ContentType,
-    alt_text: String,
-    url: String,
+    pub content_type: ContentType,
+    pub alt_text: String,
+    pub src_url: String,
+    pub width: i32,
 }
 
 impl ProjectContent {
-    // Another static method, taking two arguments:
-    fn new(content_type: ContentType, alt_text: &str, url: &str) -> ProjectContent {
+    pub fn new(content_type: ContentType, alt_text: &str, url: &str) -> ProjectContent {
         ProjectContent {
             content_type: content_type,
             alt_text: alt_text.to_owned(),
-            url: url.to_owned(),
+            src_url: url.to_owned(),
+            width: 640,
         }
     }
 }
 
-pub struct VideoContentCard {
-    link: ComponentLink<Self>,
+pub struct VideoContentCard(VideoContentCardProps);
+
+pub enum VideoContentCardMessage {}
+
+#[derive(Properties, Clone)]
+pub struct VideoContentCardProps {
+    pub alt_text: String,
+    pub video_url: String,
+    pub width: i32,
 }
+
 impl Component for VideoContentCard {
-    type Message = Msg;
-    type Properties = ();
-    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link }
+    type Message = VideoContentCardMessage;
+    type Properties = VideoContentCardProps;
+    fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
+        Self { 0: props }
     }
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
         false
     }
     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
         // Should only return "true" if new properties are different to
         // previously received properties.
-        // This component has no properties so we will always return "false".
+        // This component isn't expected to change so just false for now...
         false
     }
     fn view(&self) -> Html {
         html! {
             <div>
-                <a href="https://gyazo.com/94297d4712add817da9ec7ecda9fa5a4"><video alt="Video from Gyazo" width="640" autoplay=true muted=true loop=true playsinline=true controls=true><source src="https://i.gyazo.com/94297d4712add817da9ec7ecda9fa5a4.mp4" type="video/mp4" /></video></a>
+                <video alt={self.0.alt_text.to_owned()} width={self.0.width} autoplay=true muted=true loop=true playsinline=true controls=true><source src={self.0.video_url.to_owned()} type="video/mp4" /></video>
             </div>
         }
     }

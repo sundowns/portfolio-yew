@@ -8,4 +8,4 @@
 
 ## Serve locally
 
-`miniserve ./static --index index.html`
+`miniserve static --index index.html`
