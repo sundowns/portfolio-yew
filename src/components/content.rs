@@ -26,8 +26,6 @@ impl ProjectContent {
 
 pub struct VideoContentCard(VideoContentCardProps);
 
-pub enum VideoContentCardMessage {}
-
 #[derive(Properties, Clone)]
 pub struct VideoContentCardProps {
     pub alt_text: String,
@@ -36,7 +34,7 @@ pub struct VideoContentCardProps {
 }
 
 impl Component for VideoContentCard {
-    type Message = VideoContentCardMessage;
+    type Message = ();
     type Properties = VideoContentCardProps;
     fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
         Self { 0: props }
@@ -52,8 +50,41 @@ impl Component for VideoContentCard {
     }
     fn view(&self) -> Html {
         html! {
-            <div>
+            <div class="content-box video">
                 <video alt={self.0.alt_text.to_owned()} width={self.0.width} autoplay=true muted=true loop=true playsinline=true controls=true><source src={self.0.video_url.to_owned()} type="video/mp4" /></video>
+            </div>
+        }
+    }
+}
+
+pub struct ImageContentCard(ImageContentCardProps);
+
+#[derive(Properties, Clone)]
+pub struct ImageContentCardProps {
+    pub alt_text: String,
+    pub image_url: String,
+    pub width: i32,
+}
+
+impl Component for ImageContentCard {
+    type Message = ();
+    type Properties = ImageContentCardProps;
+    fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
+        Self { 0: props }
+    }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
+    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+        // Should only return "true" if new properties are different to
+        // previously received properties.
+        // This component isn't expected to change so just false for now...
+        false
+    }
+    fn view(&self) -> Html {
+        html! {
+            <div class="content-box screenshot">
+                <img src={self.0.image_url.to_owned()} alt={self.0.alt_text.to_owned()} width={self.0.width} />
             </div>
         }
     }
