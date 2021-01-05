@@ -3,3 +3,4 @@ Cargo.lock
 .vscode
 .yarn
 .pnp.js
+node_modules

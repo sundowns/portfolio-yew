@@ -1,7 +1,7 @@
 {
     "private": true,
     "scripts": {
-        "build": "wasm-pack build --target web --out-name wasm --out-dir ./static",
+        "build": "yarn run sass && wasm-pack build --target web --out-name wasm --out-dir ./static",
         "serve": "miniserve static --index index.html",
         "dev": "yarn run build && yarn run serve",
         "sass": "node-sass styles -o static/styles",
