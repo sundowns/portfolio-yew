@@ -8,4 +8,12 @@
 
 -   Build the app `yarn run build`
 
--   Serve the app locally `yarn run serve` (Alternatively `yarn run build-serve`). The serve command currently uses `miniserve`, but it could be any web server
+-   Serve the app locally `yarn run serve` (Alternatively `yarn run dev` for both). The serve command currently uses `miniserve`, but it could be any web server
+
+## Local dev
+
+-   `yarn install`
+-   Open two terminal windows:
+    -   `yarn run sass-watch`
+    -   `yarn run dev`
+-   Sass will now be automatically compiled
