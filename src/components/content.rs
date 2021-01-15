@@ -6,6 +6,7 @@ pub enum ContentType {
     Screenshot,
 }
 
+#[derive(Clone)]
 pub struct ProjectContent {
     pub content_type: ContentType,
     pub alt_text: String,

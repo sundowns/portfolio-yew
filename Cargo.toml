@@ -1,5 +1,6 @@
 [package]
-name = "yew-app"
+name = "sundowns-portfolio"
+description = "Yew web app portfolio for Tom Smallridge (Sundowns)"
 version = "0.1.0"
 authors = ["Tom Smallridge <tom.smallridge@versent.com.au>"]
 edition = "2018"
